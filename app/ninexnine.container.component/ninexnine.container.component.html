@@ -1,0 +1,29 @@
+<!-- selected what mutiple to try (from 1 to 9) -->
+<ul class="select-number-range">
+    <li *ngFor="let num of numberList1; let idx=index">    
+        <input #number1cb type="checkbox" name="number1-{{idx}}" (change)="changed(number1cb.checked, idx)" [checked]="selectedNumber[idx]" />
+        <span>{{num}}</span>
+    </li>
+</ul>
+
+<button (click)="buttonClick()">{{buttonTxt()}}</button>
+
+
+<!-- Do the multiple -->
+<div class="do-multiple-test">
+    <div>{{product.number2}}</div>
+    <div>{{product.number1}}</div>
+    <div><input #resultinput type="number" (keyup)="resultChanged($event, resultinput.value)" [value]="result"></div>
+    <div class="show-result" *ngIf="isShowResult()">
+        <i class="fa fa-times fa-2x" *ngIf="!product.isCorrect()"></i>
+        <i class="fa fa-check fa-2x" *ngIf="product.isCorrect()"></i>
+    </div>
+</div>
+<button (click)="submitClick()">Submit</button>
+
+<!--
+<pre>{{result | json}}</pre>
+<pre>{{product | json}}</pre>
+<pre>{{number1Range | json}}</pre>
+<pre>{{selectedNumber | json}}</pre>
+-->
