@@ -13,6 +13,9 @@ export class NinexNineComponent {
     isStarting: boolean;
     product:Product;
     result:number;
+    goodJob:any;
+    badJob:any;
+
 
     constructor(){
         this.isStarting = false;
@@ -44,8 +47,22 @@ export class NinexNineComponent {
         }
     }
 
+    ;
     submitClick() {
         this.product.product = this.result;
+        if(this.product.isCorrect()) {
+            console.log('correct');
+            if(!this.goodJob) {
+                this.goodJob = new Audio('good-job-zachary.mp3');
+            }
+            this.goodJob.play();
+        } else {
+            console.log('incorrect');
+            if(!this.badJob) {
+                this.badJob = new Audio('incorrect-amz.mp3');
+            }
+            this.badJob.play();
+        }
         setTimeout((function() {
             this.result = null;
             this.product = new Product(this.number1Range);
