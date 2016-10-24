@@ -13,7 +13,7 @@
 <div class="do-multiple-test">
     <div>{{product.number2}}</div>
     <div>{{product.number1}}</div>
-    <div><input #resultinput type="number" (keyup)="resultChanged($event, resultinput.value)" [value]="result"></div>
+    <div><input #resultinput type="number" (keydown)="resultChanged($event, resultinput.value)" [value]="result"></div>
     <div class="show-result" *ngIf="isShowResult()">
         <i class="fa fa-times fa-2x" *ngIf="!product.isCorrect()"></i>
         <i class="fa fa-check fa-2x" *ngIf="product.isCorrect()"></i>
