@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {Product} from './Product';
+import {ProductComponent} from './product.component';
+
 
 @Component({
     selector: 'nine-x-nine-container',
@@ -7,15 +9,13 @@ import {Product} from './Product';
     styleUrls: ['./app/ninexnine.container.component/ninexnine.container.component.css']
 })
 export class NinexNineComponent {
-    numberList1:number[] = [1,2,3,4,5,6,7,8,9,10,11,12];
+    numberList1:number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
     selectedNumber: Array<Boolean> = [];
     number1Range:number[] = [];
     isStarting: boolean;
     product:Product;
-    result:number;
     goodJob:any;
     badJob:any;
-
 
     constructor(){
         this.isStarting = false;
@@ -40,38 +40,38 @@ export class NinexNineComponent {
         this.product = new Product(this.number1Range);
     }
 
-    resultChanged(event:any, value:number) {
-        this.result = Number.parseInt(value.toString());
-        if(event.keyCode === 13 && !isNaN(this.result) && this.result!==null && this.result!==undefined) {
-            this.submitClick();
-        }
+    submitClick() {
+        this.playSound();
+        this.product = null;
+        this.generateNewOne();
     }
 
-    ;
-    submitClick() {
-        this.product.product = this.result;
-        if(this.product.isCorrect()) {
+    evaluateResult(event:Event) {
+        this.playSound();
+        this.generateNewOne();
+    }
+
+    playSound() {
+        if (this.product.isCorrect()) {
             console.log('correct');
-            if(!this.goodJob) {
+            if (!this.goodJob) {
                 this.goodJob = new Audio('good-job-zachary.mp3');
             }
             this.goodJob.play();
         } else {
             console.log('incorrect');
-            if(!this.badJob) {
+            if (!this.badJob) {
                 this.badJob = new Audio('incorrect-amz.mp3');
             }
             this.badJob.play();
         }
-        setTimeout((function() {
-            this.result = null;
-            this.product = new Product(this.number1Range);
-        }).bind(this), 1000);
     }
 
-    isShowResult(){
-        var ret:boolean = Boolean(this.product.product);
-        return ret;
+    generateNewOne() {
+        setTimeout((function () {
+            // this.result = null;
+            this.product = new Product(this.number1Range);
+        }).bind(this), 1000);
     }
 
 

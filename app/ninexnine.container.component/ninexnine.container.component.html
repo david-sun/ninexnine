@@ -10,20 +10,12 @@
 
 
 <!-- Do the multiple -->
-<div class="do-multiple-test">
-    <div>{{product.number2}}</div>
-    <div>{{product.number1}}</div>
-    <div><input #resultinput type="number" (keydown)="resultChanged($event, resultinput.value)" [value]="result"></div>
-    <div class="show-result" *ngIf="isShowResult()">
-        <i class="fa fa-times fa-2x" *ngIf="!product.isCorrect()"></i>
-        <i class="fa fa-check fa-2x" *ngIf="product.isCorrect()"></i>
-    </div>
-</div>
+<product-component [product]="product" (productEntered)="evaluateResult($event)"></product-component>
 <button (click)="submitClick()">Submit</button>
 
+
+
 <!--
-<pre>{{result | json}}</pre>
-<pre>{{product | json}}</pre>
 <pre>{{number1Range | json}}</pre>
 <pre>{{selectedNumber | json}}</pre>
 -->

@@ -1,0 +1,42 @@
+/**
+ * do the test
+ */
+.do-multiple-test div {
+    width: 100px;
+    padding: 10px 30px 10px 30px;
+    text-align: right;
+}
+
+.do-multiple-test {
+    position: relative;
+    left: 69px;
+}
+
+.do-multiple-test div:nth-child(2) {
+    border-bottom: solid 1px black;
+}
+
+.do-multiple-test div:nth-child(2)::before {
+    content: 'x';
+    position: absolute;
+    left: 30px;    
+}
+
+.do-multiple-test div:nth-child(3) input {
+    width: 110px;
+    text-align: right;
+}
+
+.do-multiple-test .show-result {
+    position: absolute;
+    bottom: -5px;
+    left: 32px;
+}
+
+.do-multiple-test .show-result .fa-times {
+    color: red;
+}
+
+.do-multiple-test .show-result .fa-check {
+    color: green;
+}
