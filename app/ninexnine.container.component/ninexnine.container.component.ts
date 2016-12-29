@@ -21,14 +21,15 @@ export class NinexNineComponent {
         this.isStarting = false;
         this.selectedNumber[0] = true;
         this.number1Range[0] = 1;
-        this.product = new Product(this.number1Range);
+        this.product = new Product(this.number1Range, this.numberList1.length);
     }
 
-    changed(checked:boolean, index:number) {
+    changed(checked: boolean, index: number) {
         this.selectedNumber[index] = checked;
-        this.number1Range = this.selectedNumber.map((value, index) => value?(index+1):null).
-                                                filter((value, index) => value !== null);
-        this.product = new Product(this.number1Range);
+        this.number1Range = this.selectedNumber
+                                .map((value, index) => value ? (index + 1) : null)
+                                .filter((value, index) => value !== null);
+        this.product = new Product(this.number1Range, this.numberList1.length);
     }
 
     buttonTxt() {
@@ -37,7 +38,7 @@ export class NinexNineComponent {
 
     buttonClick() {
         this.isStarting = !this.isStarting;
-        this.product = new Product(this.number1Range);
+        this.product = new Product(this.number1Range, this.numberList1.length);
     }
 
     submitClick() {
@@ -69,10 +70,8 @@ export class NinexNineComponent {
 
     generateNewOne() {
         setTimeout((function () {
-            // this.result = null;
-            this.product = new Product(this.number1Range);
+            this.product = new Product(this.number1Range, this.numberList1.length);
         }).bind(this), 1000);
     }
-
 
 }
