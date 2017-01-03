@@ -20,14 +20,14 @@ export class ProductComponent {
     resultChanged(event:any, value:number) {
         var result:number = Number.parseInt(value.toString());
         if(event.keyCode === 13 && !isNaN(result) && result!==null && result!==undefined) {
-            this.product.product = result;
+            this.product.result = result;
             // trigger an event to tell outter side
             this.productEntered.emit(this.product);
         }
     }
 
     isShowResult(){
-        var ret:boolean = Boolean(this.product.product);
+        var ret:boolean = Boolean(this.product.result);
         return ret;
     }
 }

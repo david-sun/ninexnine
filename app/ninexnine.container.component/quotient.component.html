@@ -1,0 +1,9 @@
+<div class="do-multiple-test">
+    <div>{{quotient.number1}}</div>
+    <div>{{quotient.number2}}</div>
+    <div><input #resultinput type="number" (keydown)="resultChanged($event, resultinput.value)" [value]="quotient.result"></div>
+    <div class="show-result" *ngIf="isShowResult()">
+        <i class="fa fa-times fa-2x" *ngIf="!quotient.isCorrect()"></i>
+        <i class="fa fa-check fa-2x" *ngIf="quotient.isCorrect()"></i>
+    </div>
+</div>

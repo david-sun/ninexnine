@@ -1,6 +1,10 @@
 import {Component} from '@angular/core';
+
+import {OperandBase} from './operandbase';
 import {Product} from './Product';
 import {ProductComponent} from './product.component';
+import {Quotient} from './Quotient';
+import {QuotientComponent} from './quotient.component';
 
 
 @Component({
@@ -9,11 +13,12 @@ import {ProductComponent} from './product.component';
     styleUrls: ['./app/ninexnine.container.component/ninexnine.container.component.css']
 })
 export class NinexNineComponent {
-    numberList1:number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+    numberList1:number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
     selectedNumber: Array<Boolean> = [];
     number1Range:number[] = [];
     isStarting: boolean;
-    product:Product;
+    product:OperandBase;
+    mathType:string;
     goodJob:any;
     badJob:any;
 
@@ -21,7 +26,8 @@ export class NinexNineComponent {
         this.isStarting = false;
         this.selectedNumber[0] = true;
         this.number1Range[0] = 1;
-        this.product = new Product(this.number1Range, this.numberList1.length);
+        this.generateNewOne();
+        this.mathType = 'devide';
     }
 
     changed(checked: boolean, index: number) {
@@ -29,7 +35,7 @@ export class NinexNineComponent {
         this.number1Range = this.selectedNumber
                                 .map((value, index) => value ? (index + 1) : null)
                                 .filter((value, index) => value !== null);
-        this.product = new Product(this.number1Range, this.numberList1.length);
+        this.generateNewOne();
     }
 
     buttonTxt() {
@@ -38,18 +44,24 @@ export class NinexNineComponent {
 
     buttonClick() {
         this.isStarting = !this.isStarting;
-        this.product = new Product(this.number1Range, this.numberList1.length);
+        this.generateNewOne();
     }
 
+    mathTypeChanged(event:any, mType:string) {
+        console.log('test ' + mType);
+
+        this.mathType = mType;
+        this.generateNewOne();
+    }
     submitClick() {
         this.playSound();
         this.product = null;
-        this.generateNewOne();
+        this.generateNewOneAsyn();
     }
 
     evaluateResult(event:Event) {
         this.playSound();
-        this.generateNewOne();
+        this.generateNewOneAsyn();
     }
 
     playSound() {
@@ -69,9 +81,18 @@ export class NinexNineComponent {
     }
 
     generateNewOne() {
-        setTimeout((function () {
+        this.product = null;
+        if (this.mathType === 'multiple') {
             this.product = new Product(this.number1Range, this.numberList1.length);
-        }).bind(this), 1000);
+        } else {
+            this.product = new Quotient(this.number1Range, this.numberList1.length);
+        }
+    }
+
+    generateNewOneAsyn() {
+        setTimeout((function () {
+            this.generateNewOne();
+        }).bind(this), 500);
     }
 
 }

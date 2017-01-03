@@ -1,19 +1,22 @@
 <!-- selected what mutiple to try (from 1 to 9) -->
 <ul class="select-number-range">
     <li *ngFor="let num of numberList1; let idx=index">    
-        <input #number1cb type="checkbox" name="number1-{{idx}}" (change)="changed(number1cb.checked, idx)" [checked]="selectedNumber[idx]" />
-        <span>{{num}}</span>
+        <input #number1cb type="checkbox" name="number1-{{idx}}" [id]="idx" (change)="changed(number1cb.checked, idx)" [checked]="selectedNumber[idx]" />
+        <label [attr.for]="idx">{{num}}</label>
     </li>
+</ul>
+
+<ul class="select-number-range">
+    <li><input #mathTypeMultiple type="radio" name="mathType" id="math-type-multiple" value="multiple" [checked]="mathType === mathTypeMultiple.value" (change)="mathTypeChanged($event, mathTypeMultiple.value)" /><label for="math-type-multiple">Multiplication</label></li>
+    <li><input #mathTypeDevide type="radio" name="mathType" id="math-type-devide" value="devide" [checked]="mathType === mathTypeDevide.value" (change)="mathTypeChanged($event, mathTypeDevide.value)" /><label for="math-type-devide">Division</label></li>
 </ul>
 
 <button (click)="buttonClick()">{{buttonTxt()}}</button>
 
-
 <!-- Do the multiple -->
-<product-component [product]="product" (productEntered)="evaluateResult($event)"></product-component>
+<product-component [product]="product" (productEntered)="evaluateResult($event)" *ngIf="mathType === mathTypeMultiple.value"></product-component>
+<quotient-component [quotient]="product" (quotientEntered)="evaluateResult($event)" *ngIf="mathType === mathTypeDevide.value"></quotient-component>
 <button (click)="submitClick()">Submit</button>
-
-
 
 <!--
 <pre>{{number1Range | json}}</pre>
